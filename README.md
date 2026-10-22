@@ -33,6 +33,28 @@ Node.js가 `PATH`에 있어야 합니다.
    | Python | `write_text`, `write_bytes`, 쓰기 모드 `open(..., 'w'/'a'/'x'/'+')`, `.write()`, `os.remove/rename/replace/...`, `shutil.copy/move/rmtree`, `Path.unlink/rename/touch/rmdir` |
    | Node | `writeFile`, `appendFile`, `copyFile`, `rename`, `unlink`, `rm`, `rmdir`, `truncate`, `cp`(각각 `Sync` 포함), `createWriteStream` |
 
+## 주석으로 우회하기
+
+이 플러그인은 에이전트를 강제로 막는 장치가 아니라 1차 안내용입니다.
+Edit/Write 도구로는 정말 할 수 없는 변경이라면, 명령에 `allow-inline-write`가 들어간 주석을 넣으면 통과합니다. 차단 메시지에도 이 방법이 안내됩니다.
+
+```bash
+python -c "open('a', 'w').write('x')"  # allow-inline-write
+```
+
+```bash
+python - <<'EOF'
+# allow-inline-write
+from pathlib import Path
+Path("a.py").write_text(src)
+EOF
+```
+
+```bash
+node -e "// allow-inline-write
+require('fs').writeFileSync('a', 'x')"
+```
+
 ## 허용 예시
 
 - `python -c "print(1)"`, `node -p "process.version"`

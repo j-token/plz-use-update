@@ -1,7 +1,10 @@
 // PreToolUse hook (Bash|PowerShell): denies inline code that writes, moves or deletes files,
 // such as `python - <<'EOF'` with Path.write_text or `node -e` with fs.writeFileSync.
-// Inline code that only reads or prints is allowed.
+// Inline code that only reads or prints is allowed. This is a first-line nudge, not a hard
+// guard: a command containing BYPASS_MARKER (e.g. as a `#` or `//` comment) is let through.
 import { readFileSync } from "node:fs";
+
+const BYPASS_MARKER = "allow-inline-write";
 
 let input = {};
 try {
@@ -40,14 +43,18 @@ const nodeFileWrite = new RegExp(
 );
 const writesFiles = pythonFileWrite.test(command) || nodeFileWrite.test(command);
 
-if (runsInlineCode && writesFiles) {
+const isBypassed = command.includes(BYPASS_MARKER);
+
+if (runsInlineCode && writesFiles && !isBypassed) {
   console.log(JSON.stringify({
     hookSpecificOutput: {
       hookEventName: "PreToolUse",
       permissionDecision: "deny",
       permissionDecisionReason:
         "Modifying files with inline code (python -c, python - <<'EOF', node -e, ...) is blocked. " +
-        "Use the Edit or Write tool to change files. Inline code that only reads or prints is allowed.",
+        "Use the Edit or Write tool to change files. Inline code that only reads or prints is allowed. " +
+        `If the Edit/Write tools genuinely cannot do this change, add the comment \`# ${BYPASS_MARKER}\` ` +
+        "to the command and run it again.",
     },
   }));
 }

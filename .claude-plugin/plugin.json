@@ -1,7 +1,7 @@
 {
   "name": "plz-use-update",
-  "version": "0.2.0",
-  "description": "Blocks inline code (python -c, python - <<'EOF', node -e, ...) that writes, moves or deletes files, so Claude uses the Edit/Write tools instead. Read-only inline code still runs.",
+  "version": "0.3.0",
+  "description": "Nudges Claude away from inline code (python -c, python - <<'EOF', node -e, ...) that writes, moves or deletes files, toward the Edit/Write tools. Read-only inline code still runs; an allow-inline-write comment bypasses it.",
   "author": {
     "name": "j-token"
   },
