@@ -1,0 +1,14 @@
+{
+  "name": "plz-use-update",
+  "owner": {
+    "name": "j-token"
+  },
+  "plugins": [
+    {
+      "name": "plz-use-update",
+      "source": "./",
+      "description": "Blocks inline code in Bash/PowerShell (python -c, python - <<'EOF', here-string | python -, node -e/-p) so Claude writes scripts to files instead.",
+      "version": "0.1.0"
+    }
+  ]
+}

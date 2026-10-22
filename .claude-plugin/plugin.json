@@ -1,0 +1,11 @@
+{
+  "name": "plz-use-update",
+  "version": "0.1.0",
+  "description": "Blocks inline code in Bash/PowerShell (python -c, python - <<'EOF', here-string | python -, node -e/-p) so Claude writes scripts to files instead.",
+  "author": {
+    "name": "j-token"
+  },
+  "repository": "https://github.com/j-token/plz-use-update",
+  "license": "MIT",
+  "keywords": ["hooks", "python", "node", "inline-code"]
+}
