@@ -1,7 +1,7 @@
 {
   "name": "plz-use-update",
-  "version": "0.1.0",
-  "description": "Blocks inline code in Bash/PowerShell (python -c, python - <<'EOF', here-string | python -, node -e/-p) so Claude writes scripts to files instead.",
+  "version": "0.2.0",
+  "description": "Blocks inline code (python -c, python - <<'EOF', node -e, ...) that writes, moves or deletes files, so Claude uses the Edit/Write tools instead. Read-only inline code still runs.",
   "author": {
     "name": "j-token"
   },
